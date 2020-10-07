@@ -1,0 +1,42 @@
+<div class="d-flex">
+  <mat-card class="my-card">
+
+    <mat-card-title>REGISTRATION</mat-card-title>
+
+    <mat-card-content>
+      <form [formGroup]="newUserForm" class="d-inline-grid">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your username</mat-label>
+          <input matInput placeholder="Username" required formControlName="username" aria-label="username">
+          <mat-error *ngIf="newUserForm.controls.username.errors">This field is required!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="Email" required formControlName="email" aria-label="email">
+          <mat-error *ngIf="newUserForm.controls.email.errors?.required">This field is required!</mat-error>
+          <mat-error *ngIf="newUserForm.controls.email.errors?.email">Incorrect value!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" aria-label="password">
+          <button mat-icon-button matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="newUserForm.controls.password.errors">This field is required!</mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="createNewAccount()">SIGN UP</button>
+      <button mat-raised-button routerLink="/auth/login">Already Have An Account?</button>
+    </mat-card-actions>
+
+  </mat-card>
+</div>

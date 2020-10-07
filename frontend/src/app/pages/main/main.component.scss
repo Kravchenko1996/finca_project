@@ -1,0 +1,18 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.header {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+nav {
+  width: 60%;
+}
