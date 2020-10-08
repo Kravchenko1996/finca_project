@@ -17,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {LoginComponent} from './pages/login/login.component';
 import {ToastrModule} from 'ngx-toastr';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { EmailConfirmComponent } from './pages/email-confirm/email-confirm.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MainComponent,
     RegisterComponent,
     AuthComponent,
-    LoginComponent
+    LoginComponent,
+    EmailConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatIconModule,
     MatButtonModule,
     ToastrModule.forRoot({
-      timeOut: 1000,
+      timeOut: 2000,
       positionClass: 'toast-top-right'
     }),
 

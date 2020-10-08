@@ -42,8 +42,8 @@ export class RegisterComponent implements OnInit {
       };
       this.auth.createNewUserData(newAccountData)
         .subscribe((response: User) => {
-            this.router.navigateByUrl('auth/login');
-            this.toastr.success(`Account ${response.username} has been created!`);
+            this.router.navigateByUrl('auth/email-confirm');
+            this.toastr.success(`Check ${response.email} to activate your account!`);
           }, error => {
             Object.values(error.error).forEach((err: string) => {
               this.errors.push(err);

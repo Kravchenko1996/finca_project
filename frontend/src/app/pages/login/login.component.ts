@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.valid) {
-      this.auth.loginAccount(this.loginForm.value)
+      this.auth.loginUser(this.loginForm.value)
         .subscribe((response: LoginResponse) => {
           if (response) {
             this.toastr.success('Succesfully!');

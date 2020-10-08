@@ -1,6 +1,8 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
 from rest_framework import serializers
+
+from apps.account.email_activation import send_email_with_activation_code, generate_code
+from apps.account.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -10,8 +12,35 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
     def save(self):
-        return User.objects.create(
+        activation_code = generate_code(6)
+        user = User.objects.create(
             username=self.validated_data['username'],
             email=self.validated_data['email'],
+            activation_code=activation_code,
             password=make_password(self.validated_data['password'])
         )
+        send_email_with_activation_code(user.email, activation_code)
+        return user
+
+
+class UserNotFound(Exception):
+    pass
+
+
+class ConfirmEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(max_length=6)
+
+    def save(self, **kwargs):
+        email = self.validated_data['email']
+        code = self.validated_data['code']
+        user = User.objects.filter(email=email, activation_code=code).first()
+        if not user:
+            raise UserNotFound
+        else:
+            user.activation_code = None
+            user.is_active = True
+        return user.save()
+
+
+

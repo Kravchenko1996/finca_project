@@ -25,12 +25,16 @@ export class AuthService {
       ));
   }
 
-  loginAccount(body): Observable<LoginResponse> {
+  loginUser(body): Observable<LoginResponse> {
     return this.httpClient.post(this.apiUrl + '/api-token-auth/', body)
       .pipe(map((response: LoginResponse) => {
         this.saveToken(response.token);
         return response;
       }));
+  }
+
+  confirmEmail(body): Observable<any> {
+    return this.httpClient.post(this.apiUrl + '/confirm-email/', body);
   }
 
   refreshToken(body): Observable<object> {
