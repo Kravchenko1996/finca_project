@@ -1,0 +1,15 @@
+<div mat-dialog-content>
+  <p>Name your account</p>
+  <mat-form-field>
+    <mat-label>ToDo List</mat-label>
+    <input matInput [(ngModel)]="data.name" aria-label="name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button
+          color="primary"
+          [mat-dialog-close]="data.name"
+          [disabled]="!data.name">Submit
+  </button>
+</div>

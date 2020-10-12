@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {User} from '../../../shared/interfaces/account';
+import {User} from '../../../shared/interfaces/user';
 import {Observable} from 'rxjs';
 import {LoginResponse} from '../../../shared/interfaces/http-responses';
 
@@ -18,19 +18,20 @@ export class AuthService {
   ) {
   }
 
-  createNewUserData(formData: any): Observable<User> {
-    return this.httpClient.post(this.apiUrl + '/users/', formData)
-      .pipe(map((response) => new User()
-        .deserialize(response)
+  createUser(form: any): Observable<User> {
+    return this.httpClient.post(this.apiUrl + '/users/', form)
+      .pipe(map((user: User) => new User()
+        .deserialize(user)
       ));
   }
 
-  loginUser(body): Observable<LoginResponse> {
-    return this.httpClient.post(this.apiUrl + '/api-token-auth/', body)
+  loginUser(body: any): Observable<LoginResponse> {
+    return this.httpClient.post(this.apiUrl + '/api-token-generate/', body)
       .pipe(map((response: LoginResponse) => {
-        this.saveToken(response.token);
-        return response;
-      }));
+          this.saveToken(response.token);
+          return response;
+        }
+      ));
   }
 
   confirmEmail(body): Observable<any> {

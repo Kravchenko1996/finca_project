@@ -1,10 +1,16 @@
-<nav>
-  <a routerLink="/todo-lists" class="header">Finca Project</a>
-  <span class="example-spacer"></span>
-</nav>
-<div class="auth-box">
-  <button mat-icon-button (click)="logout()">
-    <mat-icon>login</mat-icon>
-  </button>
-</div>
+<mat-toolbar color='primary'>
+  <nav>
+    <a routerLink="/" class="header">Finca Project</a>
+    <a routerLink="/" class="header">Categories</a>
+    <a routerLink="/" class="header">Transactions</a>
+  </nav>
+  <div class="auth-box">
+    <button mat-icon-button (click)='createAccount()'>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>login</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
 <router-outlet></router-outlet>

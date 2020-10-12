@@ -6,6 +6,7 @@
   color: white;
   text-decoration: none;
   text-transform: uppercase;
+  margin-right: 30px;
 }
 
 mat-toolbar {
@@ -15,4 +16,5 @@ mat-toolbar {
 
 nav {
   width: 60%;
+  display: flex;
 }

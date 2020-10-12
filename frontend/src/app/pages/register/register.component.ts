@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../core/services/auth-service/auth.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {User} from '../../shared/interfaces/account';
+import {User} from '../../shared/interfaces/user';
 
 @Component({
   selector: 'app-register',
@@ -35,15 +35,15 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  createNewAccount(): void {
+  createUser(): void {
     if (this.newUserForm.valid) {
-      const newAccountData = {
+      const newUser = {
         ...this.newUserForm.value
       };
-      this.auth.createNewUserData(newAccountData)
-        .subscribe((response: User) => {
+      this.auth.createUser(newUser)
+        .subscribe((user: User) => {
             this.router.navigateByUrl('auth/email-confirm');
-            this.toastr.success(`Check ${response.email} to activate your account!`);
+            this.toastr.success(`Check ${user.email} to activate your account!`);
           }, error => {
             Object.values(error.error).forEach((err: string) => {
               this.errors.push(err);

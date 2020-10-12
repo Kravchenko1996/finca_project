@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MainComponent} from './pages/main/main.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -17,7 +17,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {LoginComponent} from './pages/login/login.component';
 import {ToastrModule} from 'ngx-toastr';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { EmailConfirmComponent } from './pages/email-confirm/email-confirm.component';
+import {EmailConfirmComponent} from './pages/email-confirm/email-confirm.component';
+import {CreateAccountDialogComponent} from './shared/components/create-account-dialog/create-account-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ApiInterceptor} from './core/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { EmailConfirmComponent } from './pages/email-confirm/email-confirm.compo
     RegisterComponent,
     AuthComponent,
     LoginComponent,
-    EmailConfirmComponent
+    EmailConfirmComponent,
+    CreateAccountDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,9 +48,17 @@ import { EmailConfirmComponent } from './pages/email-confirm/email-confirm.compo
       timeOut: 2000,
       positionClass: 'toast-top-right'
     }),
+    MatToolbarModule,
+    MatDialogModule,
 
   ],
-  providers: [],
+  providers: [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: ApiInterceptor,
+    multi: true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
