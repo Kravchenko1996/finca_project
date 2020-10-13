@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from apps.account.email_activation import send_email_with_activation_code, generate_code
-from apps.account.models import User, Account
+from apps.account.models import User, Account, Category, Transaction
 
 
 class UserSerializer(ModelSerializer):
@@ -48,3 +48,15 @@ class ConfirmEmailSerializer(serializers.Serializer):
         user.activation_code = None
         user.is_active = True
         return user.save()
+
+
+class CategorySerializer(ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
+class TransactionSerializer(ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = '__all__'

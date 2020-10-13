@@ -113,10 +113,10 @@ EMAIL_ACTIVE_FIELD = 'is_active'
 EMAIL_SERVER = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_ADDRESS = 'finca.code.sender@gmail.com'
-EMAIL_PASSWORD = 'fincacodesender'
+EMAIL_PASSWORD = 'testfinca123'
 EMAIL_FROM_ADDRESS = 'noreply@aliasaddress.com'
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000'
-
+EMAIL_USE_SSL = True
 AUTH_USER_MODEL = 'account.User'

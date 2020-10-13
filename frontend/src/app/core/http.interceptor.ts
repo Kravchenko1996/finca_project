@@ -17,8 +17,9 @@ export class ApiInterceptor implements HttpInterceptor {
   insertToken(request: HttpRequest<unknown>, next: HttpHandler) {
     const token = this.auth.getToken();
     if (
-      token && !request.url.endsWith('users/') &&
-      !request.url.endsWith('api-token-auth/') &&
+      token &&
+      !request.url.endsWith('users/') &&
+      !request.url.endsWith('api-token-generate/') &&
       !request.url.endsWith('api-token-refresh/')
     ) {
       return this.auth.refreshToken({token: this.auth.getToken()})

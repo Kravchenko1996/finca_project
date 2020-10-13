@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+  <p>Rename</p>
+  <form [formGroup]="categoryForm">
+    <mat-form-field>
+      <mat-label>Name:</mat-label>
+      <input type="text" matInput aria-label="Name" formControlName="name">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button
+          color="primary"
+          (click)="onSubmit()"
+          [disabled]="categoryForm.invalid">Submit
+  </button>
+</div>

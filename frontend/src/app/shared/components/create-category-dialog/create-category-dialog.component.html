@@ -1,0 +1,29 @@
+<div mat-dialog-content>
+  <p>Create category</p>
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <input matInput [(ngModel)]="data.name" aria-label="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Account</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let account of accounts"
+                  [value]="account.id.toString()"
+                  (onSelectionChange)="onChange($event, account)">
+        {{account.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button
+          color="primary"
+          [mat-dialog-close]="data"
+          [disabled]="!data.name || !data.account">Submit
+  </button>
+</div>
+

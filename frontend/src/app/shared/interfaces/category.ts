@@ -1,9 +1,9 @@
 import {Deserializable} from './deserializable';
 
-export class Account implements Deserializable {
+export class Category implements Deserializable {
   id: number;
   name: string;
-  user: number;
+  account: number;
 
   deserialize(input: object): this {
     Object.assign(this, input);

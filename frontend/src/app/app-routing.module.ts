@@ -6,12 +6,24 @@ import {LoginComponent} from './pages/login/login.component';
 import {MainComponent} from './pages/main/main.component';
 import {AuthGuard} from './core/auth.guard';
 import {EmailConfirmComponent} from './pages/email-confirm/email-confirm.component';
+import {CategoriesComponent} from './pages/categories/categories.component';
+import {TransactionsComponent} from './pages/transactions/transactions.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'categories',
+        component: CategoriesComponent
+      },
+      {
+        path: 'transactions',
+        component: TransactionsComponent
+      }
+    ]
   },
   {
     path: 'auth',

@@ -39,7 +39,7 @@ export class EmailConfirmComponent implements OnInit {
       this.auth.confirmEmail(emailConfirmationData)
         .subscribe(response => {
           if (response) {
-            this.toastr.success('Succesfully!');
+            this.toastr.success('Email successfully confirmed!');
             this.router.navigateByUrl('/');
           }
         });

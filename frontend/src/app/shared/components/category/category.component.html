@@ -1,0 +1,15 @@
+<div class="d-flex">
+  <mat-card *ngIf="category">
+    <mat-card-header>
+      <mat-card-title>{{category.name}}</mat-card-title>
+      <div class="correction-column">
+        <button mat-icon-button aria-label="edit" class="edit-btn" (click)="editCategory()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="delete" class="del-btn" (click)="deleteCategory()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+  </mat-card>
+</div>

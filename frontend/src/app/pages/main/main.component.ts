@@ -5,7 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreateAccountDialogComponent} from '../../shared/components/create-account-dialog/create-account-dialog.component';
 import {ApiService} from '../../core/services/api/api.service';
-import {User} from '../../shared/interfaces/user';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-main',
@@ -14,7 +14,7 @@ import {User} from '../../shared/interfaces/user';
 })
 export class MainComponent implements OnInit {
   accountForm: FormGroup;
-  loggedUser: User;
+  errors: string[] = [];
 
   constructor(
     private auth: AuthService,
@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
+    private toastr: ToastrService
   ) {
   }
 
@@ -54,9 +55,18 @@ export class MainComponent implements OnInit {
           account = {name: result};
           if (account) {
             this.api.createAccount(account)
-              .subscribe((response) => {
-                console.log(response);
-                // this.insertAccountId();
+              .subscribe((response: Account) => {
+                if (response) {
+                  this.toastr.success(`Account ${response.name} created!`);
+                }
+              }, error => {
+                Object.values(error.error).forEach((err: string) => {
+                  this.errors.push(err);
+                });
+                this.errors.forEach((err: string) => {
+                  this.toastr.warning(err);
+                });
+                this.errors = [];
               });
           }
         }

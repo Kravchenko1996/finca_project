@@ -1,0 +1,9 @@
+<div class="d-flex">
+  <button mat-raised-button color="primary" (click)="createCategory()">
+    Create Category
+  </button>
+</div>
+<app-category
+  *ngFor="let category of categories"
+  [category]="category">
+</app-category>

@@ -19,8 +19,17 @@ import {ToastrModule} from 'ngx-toastr';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {EmailConfirmComponent} from './pages/email-confirm/email-confirm.component';
 import {CreateAccountDialogComponent} from './shared/components/create-account-dialog/create-account-dialog.component';
-import {MatDialogModule} from '@angular/material/dialog';
 import {ApiInterceptor} from './core/http.interceptor';
+import {CategoriesComponent} from './pages/categories/categories.component';
+import {TransactionsComponent} from './pages/transactions/transactions.component';
+import {CreateCategoryDialogComponent} from './shared/components/create-category-dialog/create-category-dialog.component';
+import {CreateTransactionDialogComponent} from './shared/components/create-transaction-dialog/create-transaction-dialog.component';
+import {MatOptionModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CategoryComponent } from './shared/components/category/category.component';
+import { EditCategoryDialogComponent } from './shared/components/edit-category-dialog/edit-category-dialog.component';
+import { AcknoledgementDialogComponent } from './shared/components/acknoledgement-dialog/acknoledgement-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +39,14 @@ import {ApiInterceptor} from './core/http.interceptor';
     AuthComponent,
     LoginComponent,
     EmailConfirmComponent,
-    CreateAccountDialogComponent
+    CreateAccountDialogComponent,
+    CategoriesComponent,
+    TransactionsComponent,
+    CreateCategoryDialogComponent,
+    CreateTransactionDialogComponent,
+    CategoryComponent,
+    EditCategoryDialogComponent,
+    AcknoledgementDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,20 +60,22 @@ import {ApiInterceptor} from './core/http.interceptor';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatToolbarModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right'
     }),
-    MatToolbarModule,
-    MatDialogModule,
 
   ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ApiInterceptor,
-    multi: true
-  }
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
