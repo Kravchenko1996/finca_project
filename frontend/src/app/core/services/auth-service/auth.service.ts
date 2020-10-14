@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   confirmEmail(body): Observable<any> {
-    return this.httpClient.post(this.apiUrl + '/confirm-email/', body);
+    return this.httpClient.post(this.apiUrl + '/email-confirm', body);
   }
 
   refreshToken(body): Observable<object> {

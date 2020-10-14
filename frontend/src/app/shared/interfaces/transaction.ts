@@ -1,11 +1,12 @@
-import {Deserializable} from "./deserializable";
+import {Deserializable} from './deserializable';
 
 export class Transaction implements Deserializable {
   id: number;
   category: number;
   summary: number;
-  month: string;
+  date: string;
   description: string;
+  account: number;
 
   deserialize(input: object): this {
     Object.assign(this, input);

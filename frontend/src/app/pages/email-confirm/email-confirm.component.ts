@@ -11,6 +11,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class EmailConfirmComponent implements OnInit {
   emailConfirmation: FormGroup;
+  errors: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,6 +43,15 @@ export class EmailConfirmComponent implements OnInit {
             this.toastr.success('Email successfully confirmed!');
             this.router.navigateByUrl('/');
           }
+          // ToDo wrong email code
+        }, error => {
+          Object.values(error.error).forEach((err: string) => {
+            this.errors.push(err);
+          });
+          this.errors.forEach(err => {
+            this.toastr.warning(err);
+          });
+          this.errors = [];
         });
     }
   }

@@ -31,6 +31,15 @@ body {
 .mat-dialog-content {
   text-align: center;
 }
+
 .mat-dialog-actions {
- justify-content: space-around;
+  justify-content: space-around;
+}
+
+.edit-btn:hover {
+  color: $primary;
+}
+
+.del-btn:hover {
+  color: $error;
 }

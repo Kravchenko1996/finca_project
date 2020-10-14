@@ -24,12 +24,15 @@ import {CategoriesComponent} from './pages/categories/categories.component';
 import {TransactionsComponent} from './pages/transactions/transactions.component';
 import {CreateCategoryDialogComponent} from './shared/components/create-category-dialog/create-category-dialog.component';
 import {CreateTransactionDialogComponent} from './shared/components/create-transaction-dialog/create-transaction-dialog.component';
-import {MatOptionModule} from '@angular/material/core';
+import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
-import { CategoryComponent } from './shared/components/category/category.component';
-import { EditCategoryDialogComponent } from './shared/components/edit-category-dialog/edit-category-dialog.component';
-import { AcknoledgementDialogComponent } from './shared/components/acknoledgement-dialog/acknoledgement-dialog.component';
+import {CategoryComponent} from './shared/components/category/category.component';
+import {EditCategoryDialogComponent} from './shared/components/edit-category-dialog/edit-category-dialog.component';
+import {AcknoledgementDialogComponent} from './shared/components/acknoledgement-dialog/acknoledgement-dialog.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {TransactionComponent} from './shared/components/transaction/transaction.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { AcknoledgementDialogComponent } from './shared/components/acknoledgemen
     CreateTransactionDialogComponent,
     CategoryComponent,
     EditCategoryDialogComponent,
-    AcknoledgementDialogComponent
+    AcknoledgementDialogComponent,
+    TransactionComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,9 @@ import { AcknoledgementDialogComponent } from './shared/components/acknoledgemen
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTableModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right'

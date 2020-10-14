@@ -20,7 +20,8 @@ export class ApiInterceptor implements HttpInterceptor {
       token &&
       !request.url.endsWith('users/') &&
       !request.url.endsWith('api-token-generate/') &&
-      !request.url.endsWith('api-token-refresh/')
+      !request.url.endsWith('api-token-refresh/') &&
+      !request.url.endsWith('email-confirm')
     ) {
       return this.auth.refreshToken({token: this.auth.getToken()})
         .pipe(switchMap((response: any) => {

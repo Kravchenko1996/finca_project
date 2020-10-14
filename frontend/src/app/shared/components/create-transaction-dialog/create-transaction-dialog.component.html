@@ -1,0 +1,53 @@
+<div mat-dialog-content>
+  <form [formGroup]="createTransactionForm">
+    <p>Create transaction</p>
+
+    <mat-form-field>
+      <mat-label>Summary</mat-label>
+      <input type="number" matInput formControlName="summary" aria-label="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" aria-label="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" aria-label="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories"
+                    [value]="category.id.toString()">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Account</mat-label>
+      <mat-select formControlName="account">
+        <mat-option *ngFor="let account of accounts"
+                    [value]="account.id.toString()">
+          {{account.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button
+          color="primary"
+          [mat-dialog-close]="onSubmit()"
+          [disabled]="!createTransactionForm.valid">
+    Submit
+  </button>
+</div>
+

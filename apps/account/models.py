@@ -22,5 +22,6 @@ class Category(models.Model):
 class Transaction(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     summary = models.FloatField(default=0)
-    month = models.DateField(auto_now=True)
+    date = models.DateField()
     description = models.CharField(max_length=200)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)

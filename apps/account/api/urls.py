@@ -9,7 +9,7 @@ urlpatterns = [
     path('users/', CreateUserAPIView.as_view()),
     path('api-token-generate/', obtain_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
-    path('confirm-email/', ConfirmEmailAPIView.as_view()),
+    path('email-confirm', ConfirmEmailAPIView.as_view()),
     path('create-account', CreateAccountAPIView.as_view()),
     path('accounts', ListAccountAPIView.as_view()),
     path('create-category', CreateCategoryAPIView.as_view()),

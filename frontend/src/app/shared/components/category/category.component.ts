@@ -13,6 +13,8 @@ import {AcknoledgementDialogComponent} from '../acknoledgement-dialog/acknoledge
 })
 export class CategoryComponent {
   @Input() category: Category;
+  @Output() onUpdate: EventEmitter<Category> = new EventEmitter<Category>();
+  @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
     public dialog: MatDialog,
@@ -30,7 +32,7 @@ export class CategoryComponent {
       .subscribe((category: Category) => {
           if (category) {
             this.api.editCategory(category)
-              .subscribe(result => console.log(result));
+              .subscribe(result => this.onUpdate.emit(result));
           }
         }
       );
@@ -45,9 +47,9 @@ export class CategoryComponent {
       .subscribe((result: boolean) => {
         if (result) {
           this.api.deleteCategory(this.category.id)
-            .subscribe();
+            .subscribe(() => this.onDelete.emit(this.category.id));
         }
-      })
+      });
   }
 
 }

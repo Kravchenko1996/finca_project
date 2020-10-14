@@ -55,8 +55,8 @@ export class CategoriesComponent implements OnInit {
             this.api.createCategory(category)
               .subscribe((response: Category) => {
                 if (response) {
-                  this.toastr.success(`Category ${response.name} created!`);
-                  this.getCategories();
+                  this.categories.push(response);
+                  this.toastr.success(`Category ${response.name} has been created!`);
                 }
               }, error => {
                 Object.values(error.error).forEach((err: string) => {
@@ -70,6 +70,20 @@ export class CategoriesComponent implements OnInit {
           }
         }
       });
+  }
+
+  refreshCategories(category: Category): void {
+    const oldCategory = this.categories.find(
+      (oldCategory: Category) => category.id === oldCategory.id
+    );
+    const index: number = this.categories.indexOf(oldCategory);
+    this.categories[index] = category;
+  }
+
+  removeCategory(categoryId: number): void {
+    this.categories = this.categories.filter(
+      (category) => category.id !== categoryId
+    );
   }
 
   getCategories(): void {

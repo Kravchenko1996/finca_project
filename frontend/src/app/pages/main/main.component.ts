@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreateAccountDialogComponent} from '../../shared/components/create-account-dialog/create-account-dialog.component';
 import {ApiService} from '../../core/services/api/api.service';
 import {ToastrService} from 'ngx-toastr';
+import {Account} from '../../shared/interfaces/account';
 
 @Component({
   selector: 'app-main',
@@ -41,6 +42,7 @@ export class MainComponent implements OnInit {
     this.router.navigateByUrl('auth/login');
   }
 
+
   createAccount(): void {
     let account = {
       ...this.accountForm.value
@@ -72,5 +74,4 @@ export class MainComponent implements OnInit {
         }
       });
   }
-
 }
