@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.account.api.serializers import UserSerializer, ConfirmEmailSerializer, AccountSerializer, CategorySerializer, \
-    TransactionSerializer
+    TransactionSerializer, InvalidRequestDataException
 from apps.account.models import Category, Transaction, Account
 
 
@@ -34,11 +34,12 @@ class ConfirmEmailAPIView(APIView):
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response('ok', 200)
-        else:
-            return Response('Error', 400)
+        try:
+            if serializer.is_valid():
+                serializer.save()
+                return Response('ok', 200)
+        except InvalidRequestDataException:
+            return Response({"detail": "Invalid code!"}, 500)
 
 
 class CreateCategoryAPIView(CreateAPIView):

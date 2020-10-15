@@ -1,23 +1,22 @@
-.my-card {
+.stepper {
   text-align: center;
-  padding: 32px;
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
+  width: 30%;
 }
 
-.mat-card-title {
-  margin-bottom: 32px;
+.mat-horizontal-stepper-header-container {
+  margin-bottom: 10px;
 }
 
-.full-width {
-  width: 100%;
-}
-
-.d-inline-grid {
-  display: inline-grid;
+.buttons-box {
+  display: flex;
+  justify-content: space-around;
 }
 
 .mat-form-field {
   margin-bottom: 5px;
+  color: white;
+}
+
+.mat-icon {
+  color: white;
 }

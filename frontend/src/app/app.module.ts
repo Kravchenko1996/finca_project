@@ -17,7 +17,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {LoginComponent} from './pages/login/login.component';
 import {ToastrModule} from 'ngx-toastr';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {EmailConfirmComponent} from './pages/email-confirm/email-confirm.component';
 import {CreateAccountDialogComponent} from './shared/components/create-account-dialog/create-account-dialog.component';
 import {ApiInterceptor} from './core/http.interceptor';
 import {CategoriesComponent} from './pages/categories/categories.component';
@@ -33,6 +32,7 @@ import {AcknoledgementDialogComponent} from './shared/components/acknoledgement-
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {TransactionComponent} from './shared/components/transaction/transaction.component';
 import {MatTableModule} from '@angular/material/table';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,6 @@ import {MatTableModule} from '@angular/material/table';
     RegisterComponent,
     AuthComponent,
     LoginComponent,
-    EmailConfirmComponent,
     CreateAccountDialogComponent,
     CategoriesComponent,
     TransactionsComponent,
@@ -71,6 +70,7 @@ import {MatTableModule} from '@angular/material/table';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
+    MatStepperModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right'

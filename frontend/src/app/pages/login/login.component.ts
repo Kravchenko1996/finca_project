@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   initForm(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       this.auth.loginUser(this.loginForm.value)
         .subscribe((response: LoginResponse) => {
           if (response) {
-            this.toastr.success('Succesfully!');
+            this.toastr.success('Successfully logged in!');
             this.router.navigateByUrl('/');
           }
         }, error => {

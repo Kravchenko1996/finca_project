@@ -9,13 +9,12 @@ from apps.account.models import User, Account, Category, Transaction
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password']
+        fields = ['id', 'email', 'password']
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
     def save(self):
         activation_code = generate_code(6)
         user = User.objects.create(
-            username=self.validated_data['username'],
             email=self.validated_data['email'],
             activation_code=activation_code,
             is_active=False,
@@ -31,7 +30,7 @@ class AccountSerializer(ModelSerializer):
         fields = ['id', 'name', 'user']
 
 
-class UserNotFound(Exception):
+class InvalidRequestDataException(Exception):
     pass
 
 
@@ -44,7 +43,7 @@ class ConfirmEmailSerializer(serializers.Serializer):
         activation_code = self.validated_data['code']
         user = User.objects.filter(email=email, activation_code=activation_code).first()
         if not user:
-            raise UserNotFound
+            raise InvalidRequestDataException
         user.activation_code = None
         user.is_active = True
         return user.save()

@@ -7,9 +7,9 @@
       <form [formGroup]="loginForm" class="d-inline-grid">
 
         <mat-form-field appearance="fill">
-          <mat-label>Enter your username</mat-label>
-          <input matInput placeholder="Username" required formControlName="username" aria-label="username">
-          <mat-error *ngIf="loginForm.controls.username.errors">This field is required!</mat-error>
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="Email" required formControlName="email" aria-label="email">
+          <mat-error *ngIf="loginForm.controls.email.errors">This field is required!</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -29,7 +29,7 @@
 
     <mat-card-actions>
       <button mat-raised-button color="primary" (click)="login()">LOG IN</button>
-      <button mat-raised-button routerLink="/auth/register">Create a New Account</button>
+      <button mat-raised-button routerLink="/auth/register">Create a New User</button>
     </mat-card-actions>
 
   </mat-card>
