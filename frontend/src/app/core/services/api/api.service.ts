@@ -3,7 +3,6 @@ import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Account} from '../../../shared/interfaces/account';
 import {map} from 'rxjs/operators';
-import {AuthService} from '../auth-service/auth.service';
 import {Category} from '../../../shared/interfaces/category';
 import {Transaction} from '../../../shared/interfaces/transaction';
 
@@ -15,7 +14,6 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
   ) {
   }
 

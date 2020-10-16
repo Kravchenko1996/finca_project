@@ -29,15 +29,6 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Account</mat-label>
-      <mat-select formControlName="account">
-        <mat-option *ngFor="let account of accounts"
-                    [value]="account.id.toString()">
-          {{account.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
   </form>
 </div>
 

@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ApiService} from '../../../core/services/api/api.service';
 
 @Component({
   selector: 'app-create-account-dialog',
@@ -18,8 +17,6 @@ export class CreateAccountDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
 
   onCancel(): void {
     this.dialogRef.close();

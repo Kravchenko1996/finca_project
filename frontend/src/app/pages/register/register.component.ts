@@ -6,6 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {User} from '../../shared/interfaces/user';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {LoginResponse} from '../../shared/interfaces/http-responses';
+import {ApiService} from '../../core/services/api/api.service';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +33,8 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private api: ApiService
   ) {
   }
 
@@ -63,7 +65,9 @@ export class RegisterComponent implements OnInit {
       this.auth.createUser(newUser)
         .subscribe((user: User) => {
             this.toastr.success(`Check ${user.email} to activate your account!`);
-          }, error => {
+          },
+          // ToDo stop next step on stepper in case of errors
+          error => {
             Object.values(error.error).forEach((err: string) => {
               this.errors.push(err);
             });

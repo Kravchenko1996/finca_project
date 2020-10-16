@@ -20,8 +20,12 @@ class UserSerializer(ModelSerializer):
             is_active=False,
             password=make_password(self.validated_data['password'])
         )
+        account = Account.objects.create(
+            name=f'{self.validated_data["email"]}_account',
+            user=user
+        )
         send_email_with_activation_code(user.email, activation_code)
-        return user
+        return user, account
 
 
 class AccountSerializer(ModelSerializer):

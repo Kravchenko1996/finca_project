@@ -9,6 +9,7 @@ import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -41,20 +42,20 @@ export const MY_FORMATS = {
   ]
 })
 export class CreateTransactionDialogComponent implements OnInit {
-  accounts: Account[] = [];
   categories: Category[] = [];
   createTransactionForm: FormGroup;
+  accountId: number;
 
   constructor(
     private api: ApiService,
     private formBuilder: FormBuilder,
+    private localStorage: LocalStorageService,
     public dialogRef: MatDialogRef<CreateTransactionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
   }
 
   ngOnInit(): void {
-    this.getAccounts();
     this.initForm();
     this.getCategories();
   }
@@ -65,13 +66,7 @@ export class CreateTransactionDialogComponent implements OnInit {
       date: [moment(new Date()), Validators.required],
       description: ['', Validators.required],
       category: ['', Validators.required],
-      account: ['', Validators.required]
     });
-  }
-
-  getAccounts(): void {
-    this.api.getAccounts()
-      .subscribe((response: Account[]) => this.accounts = response);
   }
 
   getCategories(): void {
@@ -89,7 +84,7 @@ export class CreateTransactionDialogComponent implements OnInit {
       date: this.createTransactionForm.get('date').value.format('YYYY-MM-DD'),
       description: this.createTransactionForm.get('description').value,
       category: this.createTransactionForm.get('category').value,
-      account: this.createTransactionForm.get('account').value,
+      account: this.localStorage.getFromLocalStorage('accountId')
     };
   }
 }

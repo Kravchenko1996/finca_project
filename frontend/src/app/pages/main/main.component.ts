@@ -3,10 +3,9 @@ import {AuthService} from '../../core/services/auth-service/auth.service';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CreateAccountDialogComponent} from '../../shared/components/create-account-dialog/create-account-dialog.component';
 import {ApiService} from '../../core/services/api/api.service';
-import {ToastrService} from 'ngx-toastr';
 import {Account} from '../../shared/interfaces/account';
+import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-main',
@@ -16,6 +15,7 @@ import {Account} from '../../shared/interfaces/account';
 export class MainComponent implements OnInit {
   accountForm: FormGroup;
   errors: string[] = [];
+  accounts: Account[] = [];
 
   constructor(
     private auth: AuthService,
@@ -23,12 +23,13 @@ export class MainComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private localStorage: LocalStorageService
   ) {
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.getAccounts();
   }
 
   initForm(): void {
@@ -37,41 +38,53 @@ export class MainComponent implements OnInit {
     });
   }
 
+  setAccountToLocalStorage(): void {
+    this.localStorage.setToLocalStorage('accountId', this.accounts[0].id);
+  }
+
+  getAccounts(): void {
+    this.api.getAccounts()
+      .subscribe((response: Account[]) => {
+        this.accounts = response;
+        this.setAccountToLocalStorage();
+      });
+  }
+
   logout(): void {
     this.auth.purgeToken();
     this.router.navigateByUrl('auth/login');
   }
 
 
-  createAccount(): void {
-    let account = {
-      ...this.accountForm.value
-    };
-    const dialogRef = this.dialog.open(CreateAccountDialogComponent, {
-      width: '250px',
-      data: account
-    });
-    dialogRef.afterClosed()
-      .subscribe(result => {
-        if (result) {
-          account = {name: result};
-          if (account) {
-            this.api.createAccount(account)
-              .subscribe((response: Account) => {
-                if (response) {
-                  this.toastr.success(`Account ${response.name} created!`);
-                }
-              }, error => {
-                Object.values(error.error).forEach((err: string) => {
-                  this.errors.push(err);
-                });
-                this.errors.forEach((err: string) => {
-                  this.toastr.warning(err);
-                });
-                this.errors = [];
-              });
-          }
-        }
-      });
-  }
+  // createAccount(): void {
+  //   let account = {
+  //     ...this.accountForm.value
+  //   };
+  //   const dialogRef = this.dialog.open(CreateAccountDialogComponent, {
+  //     width: '250px',
+  //     data: account
+  //   });
+  //   dialogRef.afterClosed()
+  //     .subscribe(result => {
+  //       if (result) {
+  //         account = {name: result};
+  //         if (account) {
+  //           this.api.createAccount(account)
+  //             .subscribe((response: Account) => {
+  //               if (response) {
+  //                 this.toastr.success(`Account ${response.name} created!`);
+  //               }
+  //             }, error => {
+  //               Object.values(error.error).forEach((err: string) => {
+  //                 this.errors.push(err);
+  //               });
+  //               this.errors.forEach((err: string) => {
+  //                 this.toastr.warning(err);
+  //               });
+  //               this.errors = [];
+  //             });
+  //         }
+  //       }
+  //     });
+  // }
 }

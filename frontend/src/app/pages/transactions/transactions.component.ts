@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../core/services/api/api.service';
 import {MatDialog} from '@angular/material/dialog';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {CreateTransactionDialogComponent} from '../../shared/components/create-transaction-dialog/create-transaction-dialog.component';
 import {Transaction} from '../../shared/interfaces/transaction';
@@ -14,7 +13,7 @@ import {Transaction} from '../../shared/interfaces/transaction';
 export class TransactionsComponent implements OnInit {
   errors: string[] = [];
   transactions: Transaction[] = [];
-  displayedColumns = ['summary', 'date', 'description', 'category', 'account'];
+  displayedColumns = ['summary', 'date', 'description', 'category'];
 
   constructor(
     private api: ApiService,

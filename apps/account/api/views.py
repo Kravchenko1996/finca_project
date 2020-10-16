@@ -2,8 +2,8 @@ from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, D
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.account.api.serializers import UserSerializer, ConfirmEmailSerializer, AccountSerializer, CategorySerializer, \
-    TransactionSerializer, InvalidRequestDataException
+from apps.account.api.serializers import UserSerializer, ConfirmEmailSerializer, AccountSerializer, \
+    CategorySerializer, TransactionSerializer, InvalidRequestDataException
 from apps.account.models import Category, Transaction, Account
 
 
@@ -14,6 +14,7 @@ class CreateUserAPIView(CreateAPIView):
 
 class CreateAccountAPIView(CreateAPIView):
     serializer_class = AccountSerializer
+    permission_classes = []
 
     def post(self, request, *args, **kwargs):
         request.data['user'] = request.user.id
@@ -60,7 +61,9 @@ class DeleteCategoryAPIView(DestroyAPIView):
 
 class ListCategoryAPIView(ListAPIView):
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+
+    def get_queryset(self):
+        return Category.objects.filter(account=self.request.user.id)
 
 
 class CreateTransaction(CreateAPIView):
@@ -69,4 +72,6 @@ class CreateTransaction(CreateAPIView):
 
 class ListTransactionAPIView(ListAPIView):
     serializer_class = TransactionSerializer
-    queryset = Transaction.objects.all()
+
+    def get_queryset(self):
+        return Transaction.objects.filter(account=self.request.user.id)

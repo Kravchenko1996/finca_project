@@ -12,62 +12,55 @@ import {Category} from '../../shared/interfaces/category';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  categoryForm: FormGroup;
   errors: string[] = [];
   categories: Category[] = [];
+  accounts: Account[] = [];
 
   constructor(
     private api: ApiService,
     private dialog: MatDialog,
-    private formBuilder: FormBuilder,
     private toastr: ToastrService
   ) {
   }
 
   ngOnInit(): void {
+    this.getAccounts();
     this.getCategories();
-    this.initForm();
   }
 
-  initForm(): void {
-    this.categoryForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      account: ['', Validators.required]
-    });
+  getAccounts(): void {
+    this.api.getAccounts()
+      .subscribe((response: Account[]) => this.accounts = response);
+  }
+
+  getCategories(): void {
+    this.api.getCategories()
+      .subscribe((response: Category[]) => this.categories = response);
   }
 
   createCategory(): void {
-    let category = {
-      ...this.categoryForm.value
-    };
+
     const dialogRef = this.dialog.open(CreateCategoryDialogComponent, {
       width: '250px',
-      data: category
     });
     dialogRef.afterClosed()
-      .subscribe(result => {
+      .subscribe((result: Category) => {
         if (result) {
-          category = {
-            name: result.name,
-            account: result.account
-          };
-          if (category) {
-            this.api.createCategory(category)
-              .subscribe((response: Category) => {
-                if (response) {
-                  this.categories.push(response);
-                  this.toastr.success(`Category ${response.name} has been created!`);
-                }
-              }, error => {
-                Object.values(error.error).forEach((err: string) => {
-                  this.errors.push(err);
-                });
-                this.errors.forEach((err: string) => {
-                  this.toastr.warning(err);
-                });
-                this.errors = [];
+          this.api.createCategory(result)
+            .subscribe((response: Category) => {
+              if (response) {
+                this.categories.push(response);
+                this.toastr.success(`Category ${response.name} has been created!`);
+              }
+            }, error => {
+              Object.values(error.error).forEach((err: string) => {
+                this.errors.push(err);
               });
-          }
+              this.errors.forEach((err: string) => {
+                this.toastr.warning(err);
+              });
+              this.errors = [];
+            });
         }
       });
   }
@@ -85,10 +78,4 @@ export class CategoriesComponent implements OnInit {
       (category) => category.id !== categoryId
     );
   }
-
-  getCategories(): void {
-    this.api.getCategories()
-      .subscribe((response: Category[]) => this.categories = response);
-  }
-
 }

@@ -3,6 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
+    username = None
     email = models.EmailField(unique=True)
     activation_code = models.CharField(max_length=6, null=True, blank=True)
 

@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ApiService} from '../../../core/services/api/api.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
+import {Category} from '../../interfaces/category';
 
 @Component({
   selector: 'app-create-category-dialog',
@@ -8,32 +10,35 @@ import {ApiService} from '../../../core/services/api/api.service';
   styleUrls: ['./create-category-dialog.component.scss']
 })
 export class CreateCategoryDialogComponent implements OnInit {
-  accounts: Account[] = [];
+  createCategoryForm: FormGroup;
 
   constructor(
-    private api: ApiService,
+    private formBuilder: FormBuilder,
+    private localStorage: LocalStorageService,
     public dialogRef: MatDialogRef<CreateCategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
   }
 
   ngOnInit(): void {
-    this.getAccounts();
+    this.initForm();
   }
 
-  getAccounts(): void {
-    this.api.getAccounts()
-      .subscribe((response: Account[]) => this.accounts = response);
+  initForm(): void {
+    this.createCategoryForm = this.formBuilder.group({
+      name: ['', Validators.required],
+    });
   }
 
   onCancel(): void {
     this.dialogRef.close();
   }
 
-  onChange(event, account: Account): void {
-    if (event.isUserInput) {
-      this.data.account = account.id;
-    }
+  onSubmit(): any {
+    return {
+      name: this.createCategoryForm.get('name').value,
+      account: this.localStorage.getFromLocalStorage('accountId')
+    };
   }
 
 }
